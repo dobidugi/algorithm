@@ -1,0 +1,12 @@
+import java.util.Scanner;
+
+public class Main{
+
+    public static void main(String args[]){
+        Scanner scan = new Scanner(System.in);
+        for(int i=1;i<=9;i++){
+            for(int j=2;j<=5;j++) System.out.printf("%d x %d = %2d\t",j,i,j*i);
+            System.out.println("");
+        }
+    }
+}
