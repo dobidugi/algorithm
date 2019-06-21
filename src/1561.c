@@ -1,0 +1,1 @@
+int max(int n,int m) {if(n>m) return n; else return m;}

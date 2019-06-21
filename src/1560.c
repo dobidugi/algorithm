@@ -1,0 +1,1 @@
+long long int f(long long int p, long long int q) {if(p>q) return p-q; else return q-p;}
