@@ -1,0 +1,94 @@
+import java.util.Scanner;
+import java.util.Stack;
+public class Main{
+    private Stack<Integer> f(Stack<Integer> st1, Stack<Integer> st2){
+        int num1,num2,carray=0;
+        Stack<Integer> result = new Stack<Integer>();
+        while(!st1.isEmpty()){
+            if(!st2.isEmpty()){
+                num1 = st1.pop();
+                num2 = st2.pop();
+                if(carray==1) {
+                    if(num1==0) num1++;
+                    num1--;
+                    carray=0;
+                }
+                if(num1<num2){
+                    carray=1;
+                    num1+=10;
+                    result.push(num1-num2);
+                }
+                else result.push(num1-num2);
+            }
+            else{
+                num1 = st1.pop();
+                if(carray==1) {
+                    if(!st1.isEmpty()) num1+=10;
+                    num1--;
+                }
+                if(st1.isEmpty() && num1==0){}
+                else result.push(num1);
+            }
+        }
+        return result;
+    }
+    public static void main(String args[]){
+        Main m = new Main();
+        boolean flag = false;
+        Scanner scan = new Scanner(System.in);
+        Stack<Integer> st1 = new Stack<Integer>();
+        Stack<Integer> st2 = new Stack<Integer>();
+        Stack<Integer> result = new Stack<Integer>();
+
+        String str1 = scan.nextLine();
+        String str2 = scan.nextLine();
+
+        
+
+        if(str1.length()>str2.length()){
+            for(int i=0;i<str1.length();i++) st1.push(str1.charAt(i)-'0');
+            for(int i=0;i<str1.length()-str2.length();i++){
+                st2.push(0);
+            }
+            for(int i=0;i<str2.length();i++) st2.push(str2.charAt(i)-'0');
+            result = m.f(st1,st2);
+        }
+
+        else if(str1.length()<str2.length()){
+            
+            for(int i=0;i<str2.length()-str1.length();i++){
+                st1.push(0);
+            }
+            for(int i=0;i<str1.length();i++) st1.push(str1.charAt(i)-'0');
+            flag = true;
+            result = m.f(st2,st1);
+        }
+        
+        else if(str1.length() == str2.length()) {
+            for(int i=0;i<str1.length();i++){
+                if(str1.charAt(i)>str2.charAt(i)) { 
+                    result = m.f(st1,st2);
+                    break;
+                }
+                else if(str1.charAt(i)<str2.charAt(i)) {
+                    flag = true;
+                    result = m.f(st2,st1);
+                    break;
+                }
+                else continue;
+            }
+        }
+
+        if(flag==true) System.out.print('-');
+        flag = false;
+        while(!result.isEmpty()){
+            int temp = result.pop();
+            if(flag==false && temp ==0){
+                flag = false;
+            }
+            else flag = true;
+            if(flag==true) System.out.print(temp);
+        }
+
+    }
+}
